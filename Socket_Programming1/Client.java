@@ -3,25 +3,41 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class Client {
-    public static void main(String[] args)throws Exception {
+public class client {
+    public static void main(String[] args) throws Exception {
         Socket socket = new Socket("Localhost",7000);
-        System.out.println("The client is running on the port 7000\n");
+        System.out.println("The client Running in the port number 1000");
+        
 
-       DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-       DataInputStream dis = new DataInputStream(socket.getInputStream());
+        DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+        DataInputStream  dis = new DataInputStream(socket.getInputStream());
+       
+        Scanner scanner = new Scanner(System.in);
 
-       Scanner scanner = new Scanner(System.in);
-
-       while(true){
-        String message = scanner.nextLine();
-        dos.writeUTF(message);
-
-        String res = dis.readUTF();
-        System.out.println(res);
-        if(res.equalsIgnoreCase("BYE")){
-            break;
+        while(true){
+            System.out.println("Please type a message to send to the server\n");
+            String message = scanner.nextLine();
+            dos.writeUTF(message);
+            String response ;
+            response = dis.readUTF();
+            if(Response.equals("HI")){
+                String reply;
+               while((reply=dis.readUTF())!=null)
+                    System.out.println(reply+"\n");
+                
+            }
+            else{
+            System.out.println(Response);
+            
+            if(Response=="BYE")
+            {
+                break;
+            }
         }
-       }
+        }
+    
+     dos.close();
+        dis.close();
+        socket.close();
     }
 }
